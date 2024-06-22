@@ -1,11 +1,17 @@
 import { useState } from "react";
 
 export default function RegisterForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
+  const [formFields, setFormFields] = useState({
+    username: "",
+    password: "",
+    displayName: "",
+  });
 
-  const isDisabled = !(username && password && displayName);
+  const isDisabled = !(
+    formFields.username &&
+    formFields.password &&
+    formFields.displayName
+  );
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
@@ -14,8 +20,13 @@ export default function RegisterForm() {
         <input
           type="text"
           id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={formFields.username}
+          onChange={(e) => {
+            setFormFields((currentState) => ({
+              ...currentState,
+              username: e.target.value,
+            }));
+          }}
         />
       </div>
       <div>
@@ -23,8 +34,13 @@ export default function RegisterForm() {
         <input
           type="password"
           id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formFields.password}
+          onChange={(e) => {
+            setFormFields((currentState) => ({
+              ...currentState,
+              password: e.target.value,
+            }));
+          }}
         />
       </div>
       <div>
@@ -32,8 +48,13 @@ export default function RegisterForm() {
         <input
           type="text"
           id="display-name"
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
+          value={formFields.displayName}
+          onChange={(e) => {
+            setFormFields((currentState) => ({
+              ...currentState,
+              displayName: e.target.value,
+            }));
+          }}
         />
       </div>
       <button disabled={isDisabled}>Save</button>
