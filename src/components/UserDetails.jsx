@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function UserDeatails(props) {
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState(props.user.name);
+  const [username, setUsername] = useState(props.user.username);
   const [email, setEmail] = useState(props.user.email);
 
   return (
@@ -37,6 +37,17 @@ export default function UserDeatails(props) {
         >
           Delete
         </button>
+        <button
+          onClick={() => {
+            props.setUsers((curentUsersList) =>
+              curentUsersList.filter(
+                (currentUser) => currentUser.id !== props.user.id
+              )
+            );
+          }}
+        >
+          New
+        </button>
       </div>
       <b>Id: </b>
       <span>{props.user.id}</span>
@@ -45,7 +56,7 @@ export default function UserDeatails(props) {
       {isEditing ? (
         <input value={username} onChange={(e) => setUsername(e.target.value)} />
       ) : (
-        <span>{props.user.name}</span>
+        <span>{props.user.username}</span>
       )}
       <br />
       <b>Email: </b>
@@ -62,7 +73,7 @@ export default function UserDeatails(props) {
 UserDeatails.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
   }),
   setUsers: PropTypes.func.isRequired,
