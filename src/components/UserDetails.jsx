@@ -12,11 +12,11 @@ export default function UserDeatails(props) {
         <button onClick={(e) => setIsEditing(!isEditing)}>Edit</button>
         {isEditing && (
           <button
-            onClick={(e) => {
+            onClick={() => {
               props.setUsers((curentUsersList) =>
                 curentUsersList.map((currentUser) =>
                   currentUser.id === props.user.id
-                    ? { ...currentUser, name: username, email: email}
+                    ? { ...currentUser, name: username, email: email }
                     : currentUser
                 )
               );
@@ -26,7 +26,17 @@ export default function UserDeatails(props) {
             Save
           </button>
         )}
-        <button>Delete</button>
+        <button
+          onClick={() => {
+            props.setUsers((curentUsersList) =>
+              curentUsersList.filter(
+                (currentUser) => currentUser.id !== props.user.id
+              )
+            );
+          }}
+        >
+          Delete
+        </button>
       </div>
       <b>Id: </b>
       <span>{props.user.id}</span>
@@ -55,4 +65,5 @@ UserDeatails.propTypes = {
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
   }),
+  setUsers: PropTypes.func.isRequired,
 };
