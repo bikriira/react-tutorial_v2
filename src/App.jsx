@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 
 export default function App() {
   const [counter, setCounter] = useState(0);
+  const [sync, setSync] = useState(false);
 
   useEffect(() => {
-    document.title = "React tutorial " + counter;
-  });
+    document.title = "React tutorial " + sync; // + conter is not recommended, use the value inluded in dependencyList
+  }, [sync]); // this useEffect will be trigered when the state value sync is changed only
 
   return (
     <div>
@@ -16,6 +17,13 @@ export default function App() {
         }}
       >
         Click me
+      </button>
+      <button
+        onClick={(e) => {
+          setSync((currentSyncState) => !currentSyncState);  //setSync(!sync) wont work becouse it is changing the orginal value directly
+        }}
+      >
+        sync
       </button>
     </div>
   );
